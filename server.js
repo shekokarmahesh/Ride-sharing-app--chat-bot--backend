@@ -6,12 +6,15 @@ import cors from "cors";
 const app = express();
 const port = 5000;
 
-// Enable CORS for frontend
-app.use(cors({ origin: "http://localhost:3001" }));
+// Enable CORS for all origins
+app.use(cors({ origin: "*" }));
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: { origin: "http://localhost:3001" },
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  },
 });
 
 io.on("connection", (socket) => {
